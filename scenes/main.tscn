@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://main_scene_1"]
+[gd_scene load_steps=11 format=3 uid="uid://main_scene_1"]
 
 [ext_resource type="PackedScene" uid="uid://dpln4j1j1j1k" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_camera_script"]
@@ -19,6 +19,8 @@ size = Vector3(50, 4, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
 size = Vector3(50, 4, 1)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_1"]
 
 [node name="Main" type="Node3D"]
 
@@ -43,6 +45,8 @@ shadow_enabled = true
 [node name="Level" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Level"]
+navmesh = SubResource("NavigationMesh_1")
+
 [node name="Floor" type="MeshInstance3D" parent="Level/NavigationRegion3D"]
 mesh = SubResource("PlaneMesh_floor")
 
