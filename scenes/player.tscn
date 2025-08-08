@@ -6,7 +6,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_collider"]
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
-collision_layer = 2
 script = ExtResource("1_player_script")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
