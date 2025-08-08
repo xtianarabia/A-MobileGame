@@ -1,0 +1,15 @@
+# Godot-specific ignores
+.import/
+.godot/
+
+# Exported files
+export_presets.cfg
+*.pck
+*.apk
+*.exe
+*.dmg
+*.app/
+*.html
+
+# Mono-specific ignores for C# projects (good to have just in case)
+.mono/
