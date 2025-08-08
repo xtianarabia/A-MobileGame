@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7q2v1w3xqy4k"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://dkl1v2w3xqy4c" path="res://assets/enemy.png" id="2_texture"]
+[ext_resource type="Texture2D" uid="uid://dkl1v2w3xqy4c" path="res://assets/enemy.svg" id="2_texture"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_collider"]
 size = Vector2(32, 32)
