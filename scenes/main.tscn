@@ -54,11 +54,13 @@ navmesh = SubResource("NavigationMesh_1")
 mesh = SubResource("PlaneMesh_floor")
 
 [node name="FloorCollision" type="StaticBody3D" parent="Level"]
+collision_mask = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/FloorCollision"]
 shape = SubResource("BoxShape3D_floor")
 
 [node name="WallNorth" type="StaticBody3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -25)
+collision_mask = 3
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallNorth"]
 mesh = SubResource("BoxMesh_wall")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallNorth"]
@@ -66,6 +68,7 @@ shape = SubResource("BoxShape3D_wall")
 
 [node name="WallSouth" type="StaticBody3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 25)
+collision_mask = 3
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallSouth"]
 mesh = SubResource("BoxMesh_wall")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
@@ -73,6 +76,7 @@ shape = SubResource("BoxShape3D_wall")
 
 [node name="WallEast" type="StaticBody3D" parent="Level"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25, 2, 0)
+collision_mask = 3
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast"]
 mesh = SubResource("BoxMesh_wall")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
@@ -80,6 +84,7 @@ shape = SubResource("BoxShape3D_wall")
 
 [node name="WallWest" type="StaticBody3D" parent="Level"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -25, 2, 0)
+collision_mask = 3
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WallWest"]
 mesh = SubResource("BoxMesh_wall")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]

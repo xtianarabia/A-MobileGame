@@ -11,6 +11,8 @@ material = SubResource("Material_red")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enemy_collider"]
 
 [node name="Enemy" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_enemy_script")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

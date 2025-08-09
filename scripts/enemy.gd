@@ -95,8 +95,8 @@ func can_see_player():
 	if forward_vector.dot(direction_to_player.normalized()) < cos(deg_to_rad(vision_angle)):
 		return false
 
-	# Collision mask 2 is the player
-	var query = PhysicsRayQueryParameters3D.create(global_position, player_ref.global_position, 2)
+	# Create a query that looks for objects on layer 2 (player) and excludes the enemy itself.
+	var query = PhysicsRayQueryParameters3D.create(global_position, player_ref.global_position, 2, [self.get_rid()])
 	var result = space_state.intersect_ray(query)
 
 	return result and result.collider == player_ref
