@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://main_scene_final_rebuilt"]
+[gd_scene load_steps=16 format=3 uid="uid://main_scene_final_v4"]
 
 [ext_resource type="PackedScene" uid="uid://dpln4j1j1j1k" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="2_camera_script"]
@@ -56,36 +56,36 @@ mesh = SubResource("PlaneMesh_floor")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -25)
 collision_layer = 1
 collision_mask = 3
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallNorth"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/WallNorth"]
 mesh = SubResource("BoxMesh_wall_ns")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallNorth"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/WallNorth"]
 shape = SubResource("BoxShape3D_wall_n")
 
 [node name="WallSouth" type="StaticBody3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 25)
 collision_layer = 1
 collision_mask = 3
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallSouth"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/WallSouth"]
 mesh = SubResource("BoxMesh_wall_ns")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallSouth"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/WallSouth"]
 shape = SubResource("BoxShape3D_wall_s")
 
 [node name="WallEast" type="StaticBody3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2, 0)
 collision_layer = 1
 collision_mask = 3
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/WallEast"]
 mesh = SubResource("BoxMesh_wall_ew")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/WallEast"]
 shape = SubResource("BoxShape3D_wall_e")
 
 [node name="WallWest" type="StaticBody3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2, 0)
 collision_layer = 1
 collision_mask = 3
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WallWest"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/WallWest"]
 mesh = SubResource("BoxMesh_wall_ew")
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/WallWest"]
 shape = SubResource("BoxShape3D_wall_w")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
