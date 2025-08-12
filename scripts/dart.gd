@@ -1,26 +1,27 @@
-extends Area3D
+extends RigidBody3D
 
 @export var speed = 20.0
-@export var lifespan = 2.0 # seconds
+@export var lifespan = 3.0 # Increased lifespan for better visibility
 
 func _ready():
-	# Connect the body_entered signal to our handler function
-	body_entered.connect(_on_body_entered)
-	# Set a timer to delete the dart after its lifespan
-	var timer = get_tree().create_timer(lifespan)
-	timer.timeout.connect(queue_free)
+	# Set the initial velocity to move the dart forward.
+	# -transform.basis.z is the local "forward" direction.
+	linear_velocity = -transform.basis.z * speed
 
-func _physics_process(delta):
-	# Move the dart forward
-	global_position -= transform.basis.z * speed * delta
+	# Connect the body_entered signal to our handler function.
+	body_entered.connect(_on_body_entered)
+
+	# Set a timer to delete the dart after its lifespan.
+	get_tree().create_timer(lifespan).timeout.connect(queue_free)
 
 func _on_body_entered(body):
-	# Check if the body we hit is an enemy
+	# When the dart hits something...
+
+	# Check if the body we hit is an enemy.
 	if body.is_in_group("enemy"):
-		# Call the enemy's choke_out function to disable it
+		# Call the enemy's choke_out function to disable it.
 		body.choke_out()
 
-	# The dart should disappear after hitting anything solid, not just enemies.
-	# We also check it's not another area or something without collision.
-	if body is CollisionObject3D:
+	# The dart should disappear after hitting any solid physics body.
+	if body is StaticBody3D or body is CharacterBody3D:
 		queue_free()

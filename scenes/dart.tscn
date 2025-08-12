@@ -10,9 +10,10 @@ height = 0.2
 radius = 0.05
 height = 0.2
 
-[node name="Dart" type="Area3D"]
-collision_layer = 0
+[node name="Dart" type="RigidBody3D"]
+collision_layer = 0 # The dart itself isn't on a layer that things look for
 collision_mask = 3 # Look for world (1) and characters (2)
+gravity_scale = 0.0
 script = ExtResource("1_dart_script")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -95,7 +95,12 @@ func set_state(new_state: State):
 			set_target_location(patrol_points[current_patrol_index])
 		State.SUSPICIOUS:
 			nav_agent.set_navigation_enabled(true)
-			set_target_location(last_known_player_position)
+			# Safety check to prevent crash if this state is entered without a known position
+			if last_known_player_position:
+				set_target_location(last_known_player_position)
+			else:
+				# Failsafe: if we have no position to investigate, just go back to patrolling.
+				set_state(State.UNAWARE)
 		State.ALERTED:
 			nav_agent.set_navigation_enabled(true)
 			state_timer.stop()

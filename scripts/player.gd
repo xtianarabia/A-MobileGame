@@ -68,7 +68,8 @@ func handle_movement():
 		return
 
 	var input_dir = get_input_direction()
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	# For top-down games, we use world coordinates, not player's transform.basis
+	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	var current_speed = get_current_speed()
 
 	if direction:
