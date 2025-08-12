@@ -23,29 +23,33 @@ var dart_scene = preload("res://scenes/dart.tscn")
 const CAPSULE_HEIGHT_NORMAL = 2.0
 const CAPSULE_HEIGHT_CROUCH = 1.0
 
-func _unhandled_input(event):
-	if event.is_action_pressed("crouch"):
-		if current_state == State.CROUCHING: set_state(State.NORMAL)
-		else: set_state(State.CROUCHING)
+func _input(event):
+	# Handle single-press actions here. _unhandled_input is better but this works too.
+	if event is InputEventKey and event.is_pressed():
+		match event.keycode:
+			KEY_C:
+				if current_state == State.CROUCHING: set_state(State.NORMAL)
+				else: set_state(State.CROUCHING)
+			KEY_B:
+				if current_state == State.BOX_HIDING: set_state(State.NORMAL)
+				elif current_state != State.CROUCHING: set_state(State.BOX_HIDING)
+			KEY_E:
+				if current_state == State.GRABBING:
+					if is_instance_valid(grabbed_enemy): grabbed_enemy.choke_out()
+					set_state(State.NORMAL)
+				else:
+					attempt_grab()
 
-	if event.is_action_pressed("box_equip"):
-		if current_state == State.BOX_HIDING: set_state(State.NORMAL)
-		elif current_state != State.CROUCHING: set_state(State.BOX_HIDING)
-
-	if event.is_action_pressed("grab"):
-		if current_state == State.GRABBING:
-			if is_instance_valid(grabbed_enemy): grabbed_enemy.choke_out()
-			set_state(State.NORMAL)
-		else:
-			attempt_grab()
-
-	if event.is_action_pressed("fire"):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		fire_weapon()
 
 func _physics_process(delta):
+	# State transitions for held keys
 	if current_state == State.NORMAL or current_state == State.SNEAKING:
-		if Input.is_action_pressed("sneak"): set_state(State.SNEAKING)
-		else: set_state(State.NORMAL)
+		if Input.is_key_pressed(KEY_SHIFT):
+			set_state(State.SNEAKING)
+		else:
+			set_state(State.NORMAL)
 
 	apply_gravity(delta)
 	handle_movement()
@@ -55,7 +59,7 @@ func apply_gravity(delta):
 	if not is_on_floor(): velocity.y -= gravity * delta
 
 func handle_movement():
-	if current_state == State.BOX_HIDING or current_state == State.GRABBING:
+	if current_state in [State.BOX_HIDING, State.GRABBING]:
 		velocity.x = move_toward(velocity.x, 0, walk_speed)
 		velocity.z = move_toward(velocity.z, 0, walk_speed)
 		if current_state == State.GRABBING and is_instance_valid(grabbed_enemy):
@@ -76,13 +80,16 @@ func handle_movement():
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 		velocity.z = move_toward(velocity.z, 0, current_speed)
 
-	# Simple rotation towards movement direction
-	if direction:
-		look_at(global_position + direction)
-
+	if direction: look_at(global_position + direction)
 
 func get_input_direction() -> Vector2:
-	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	# Handle WASD and arrow keys for movement
+	var input_dir = Vector2.ZERO
+	if Input.is_key_pressed(KEY_W) or Input.is_action_pressed("ui_up"): input_dir.y -= 1
+	if Input.is_key_pressed(KEY_S) or Input.is_action_pressed("ui_down"): input_dir.y += 1
+	if Input.is_key_pressed(KEY_A) or Input.is_action_pressed("ui_left"): input_dir.x -= 1
+	if Input.is_key_pressed(KEY_D) or Input.is_action_pressed("ui_right"): input_dir.x += 1
+	return input_dir
 
 func get_current_speed() -> float:
 	match current_state:
@@ -135,35 +142,3 @@ func fire_weapon():
 		dart.global_transform = muzzle.global_transform
 	else:
 		print("Cannot fire! No ammo or wrong state.")
-
-func _input(event):
-	if event is InputEventKey:
-		if event.keycode == KEY_C and event.is_pressed(): Input.action_press("crouch", 1.0); Input.action_release("crouch")
-		if event.keycode == KEY_B and event.is_pressed(): Input.action_press("box_equip", 1.0); Input.action_release("box_equip")
-		if event.keycode == KEY_E and event.is_pressed(): Input.action_press("grab", 1.0); Input.action_release("grab")
-		if event.keycode == KEY_SHIFT:
-			if event.is_pressed(): Input.action_press("sneak")
-			else: Input.action_release("sneak")
-		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			Input.action_press("fire", 1.0); Input.action_release("fire")
-
-		if event.keycode == KEY_W:
-			if event.is_pressed():
-				Input.action_press("ui_up")
-			else:
-				Input.action_release("ui_up")
-		if event.keycode == KEY_S:
-			if event.is_pressed():
-				Input.action_press("ui_down")
-			else:
-				Input.action_release("ui_down")
-		if event.keycode == KEY_A:
-			if event.is_pressed():
-				Input.action_press("ui_left")
-			else:
-				Input.action_release("ui_left")
-		if event.keycode == KEY_D:
-			if event.is_pressed():
-				Input.action_press("ui_right")
-			else:
-				Input.action_release("ui_right")
