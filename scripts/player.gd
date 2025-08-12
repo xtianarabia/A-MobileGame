@@ -148,10 +148,22 @@ func _input(event):
 			Input.action_press("fire", 1.0); Input.action_release("fire")
 
 		if event.keycode == KEY_W:
-			if event.is_pressed(): Input.action_press("ui_up"); else: Input.action_release("ui_up")
+			if event.is_pressed():
+				Input.action_press("ui_up")
+			else:
+				Input.action_release("ui_up")
 		if event.keycode == KEY_S:
-			if event.is_pressed(): Input.action_press("ui_down"); else: Input.action_release("ui_down")
+			if event.is_pressed():
+				Input.action_press("ui_down")
+			else:
+				Input.action_release("ui_down")
 		if event.keycode == KEY_A:
-			if event.is_pressed(): Input.action_press("ui_left"); else: Input.action_release("ui_left")
+			if event.is_pressed():
+				Input.action_press("ui_left")
+			else:
+				Input.action_release("ui_left")
 		if event.keycode == KEY_D:
-			if event.is_pressed(): Input.action_press("ui_right"); else: Input.action_release("ui_right")
+			if event.is_pressed():
+				Input.action_press("ui_right")
+			else:
+				Input.action_release("ui_right")
