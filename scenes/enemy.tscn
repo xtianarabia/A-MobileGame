@@ -10,7 +10,7 @@ material = SubResource("Material_red")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enemy_collider"]
 
-[node name="Enemy" type="CharacterBody3D"]
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_enemy_script")
@@ -25,6 +25,6 @@ shape = SubResource("CapsuleShape3D_enemy_collider")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="AlertTimer" type="Timer" parent="."]
+[node name="StateTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true

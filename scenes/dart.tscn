@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dart_scene_1"]
+
+[ext_resource type="Script" path="res://scripts/dart.gd" id="1_dart_script"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dart"]
+radius = 0.05
+height = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dart_collider"]
+radius = 0.05
+height = 0.2
+
+[node name="Dart" type="Area3D"]
+collision_layer = 0
+collision_mask = 3 # Look for world (1) and characters (2)
+script = ExtResource("1_dart_script")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_dart")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dart_collider")

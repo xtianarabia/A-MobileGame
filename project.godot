@@ -14,3 +14,7 @@ config/name="3D Stealth Action Game"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 run/main_scene="res://scenes/main.tscn"
+
+[autoload]
+
+NoiseManager="*res://scripts/noise_manager.gd"
